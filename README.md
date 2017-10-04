@@ -3,7 +3,8 @@
 
 Basic skeleton for OpenGL on Manjaro(Arch), with CMake
 
-To install dependencies:
+To install dependencies
+
 ```
 sudo pacman -S sdl2
 sudo pacman -S glew
@@ -14,6 +15,13 @@ Sources were created by following [this](https://www.youtube.com/playlist?list=P
 tutorial. 
 
 To build the project after installing the dependencies
+
+```
+./compile_and_run.sh
+```
+
+or alternatively
+
 ```
 mkdir build
 cd build
