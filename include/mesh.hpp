@@ -6,23 +6,27 @@
 
 class Mesh {
 public:
-  Mesh(Vertex *vertices, unsigned int count);
-  void draw();
-  virtual ~Mesh();
+    Mesh(Vertex *vertices, unsigned int count);
+
+    void draw();
+
+    virtual ~Mesh();
 
 protected:
 private:
-  void operator=(const Mesh &other) {}
-  Mesh(const Mesh &other);
+    void operator=(const Mesh &other) {}
 
-  enum {
-    POSITION_VB=0,
-    NUM_BUFFERS=1
-  };
+    Mesh(const Mesh &other);
 
-  GLuint m_vertexArrayObject;
-  GLuint m_vertexArrayBuffers[NUM_BUFFERS];
-  unsigned int m_drawCount;
+    enum {
+        POSITION_VB = 0,
+        NUM_BUFFERS = 1
+    };
+
+    GLuint m_vertexArrayId;
+    GLuint m_vertexArrayBuffers[NUM_BUFFERS];
+
+    unsigned int m_drawCount;
 };
 
 #endif // MESH_H
