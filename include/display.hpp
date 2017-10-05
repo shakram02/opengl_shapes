@@ -18,6 +18,8 @@ private:
   SDL_Window *sdlWindow;
   SDL_GLContext sdlContext;
   bool closed;
+  void operator=(const Display &other) {}
+  Display(const Display &other);
 };
 
 #endif // DISPLAY_H
