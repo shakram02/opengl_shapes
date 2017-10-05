@@ -13,7 +13,5 @@ link_libraries("-lGL -lGLEW -lSDL2")
 
 add_executable(${TARGET_NAME} ${SOURCES})
 
-# Copy the res folder containing shaders to the output directory
-add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       "${CMAKE_SOURCE_DIR}/script" "${CMAKE_BINARY_DIR}/script")
+file(GLOB SHADER_SCRIPTS "script/*")
+file(COPY ${SHADER_SCRIPTS} DESTINATION "${CMAKE_BINARY_DIR}/script")
