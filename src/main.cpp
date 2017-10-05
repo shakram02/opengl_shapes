@@ -1,5 +1,5 @@
-#include "display.h"
-#include "shader.h"
+#include "display.hpp"
+#include "shader.hpp"
 #include <GL/glew.h>
 #include <iostream>
 

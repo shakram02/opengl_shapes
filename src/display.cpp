@@ -1,4 +1,4 @@
-#include "display.h"
+#include "display.hpp"
 #include <iostream>
 Display::Display(int width, int height, const std::string &title) {
   SDL_Init(SDL_INIT_EVERYTHING);
