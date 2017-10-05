@@ -13,15 +13,14 @@ public:
 
     virtual ~Display();
 
-    void update();
+    void swapBuffers();
 
-    bool isClosed();
+    void clear(float r, float g, float b, float a);
 
 protected:
 private:
     SDL_Window *sdlWindow;
     SDL_GLContext sdlContext;
-    bool closed;
 
     void operator=(const Display &other) {}
 
