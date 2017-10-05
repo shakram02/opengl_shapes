@@ -8,18 +8,23 @@
 
 class Display {
 public:
-  Display(int width, int height, const std::string &title);
-  virtual ~Display();
-  void update();
-  bool isClosed();
+    Display(int width, int height, const std::string &title);
+
+    virtual ~Display();
+
+    void update();
+
+    bool isClosed();
 
 protected:
 private:
-  SDL_Window *sdlWindow;
-  SDL_GLContext sdlContext;
-  bool closed;
-  void operator=(const Display &other) {}
-  Display(const Display &other);
+    SDL_Window *sdlWindow;
+    SDL_GLContext sdlContext;
+    bool closed;
+
+    void operator=(const Display &other) {}
+
+    Display(const Display &other);
 };
 
 #endif // DISPLAY_H
