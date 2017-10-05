@@ -23,10 +23,10 @@ private:
         NUM_BUFFERS = 1
     };
 
-    GLuint m_vertexArrayId;
-    GLuint m_vertexArrayBuffers[NUM_BUFFERS];
+    GLuint m_vertexBufferObjects[NUM_BUFFERS];
+    GLuint m_vertexArrayObject;
 
-    unsigned int m_drawCount;
+    unsigned int m_vertexCount;
 };
 
 #endif // MESH_H

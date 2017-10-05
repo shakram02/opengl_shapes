@@ -1,30 +1,34 @@
 #include "mesh.hpp"
 
 Mesh::Mesh(Vertex *vertices, unsigned int count) {
+    static const GLfloat g_vertex_buffer_data[] = {
+            -0.1f, -0.3f, 0.0f,
+            1.0f, -1.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+    };
 
-    this->m_drawCount = count;
-    glGenVertexArrays(1, &(this->m_vertexArrayObject));
-    glBindVertexArray(this->m_vertexArrayObject);
+    this->m_vertexCount = sizeof(g_vertex_buffer_data) / sizeof(GLfloat);
 
-    glGenBuffers(this->NUM_BUFFERS, this->m_vertexArrayBuffers);
-    glBindBuffer(GL_ARRAY_BUFFER, this->m_vertexArrayBuffers[POSITION_VB]);
-    glBufferData(GL_ARRAY_BUFFER, count * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+    glGenVertexArrays(1, &(m_vertexArrayObject));
+    glGenBuffers(1, &(m_vertexBufferObjects[POSITION_VB]));
 
-    // Vertex attributes; pos, color, ...etc
-    // The GPU sees the Vertex as a sequential array of data
+    glBindVertexArray(m_vertexArrayObject);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjects[POSITION_VB]);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
+
     glEnableVertexAttribArray(0);
-    // 3 pieces of data, (Vec3)
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-    glBindVertexArray(0); // No operations will further affect the array after this statement
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
-Mesh::~Mesh() { glDeleteVertexArrays(1, &(this->m_vertexArrayObject)); }
+Mesh::~Mesh() {
+    glDeleteVertexArrays(1, &(m_vertexArrayObject));
+    glDeleteBuffers(1, &(m_vertexBufferObjects[POSITION_VB]));
+}
 
 void Mesh::draw() {
-    glBindVertexArray(this->m_vertexArrayObject);
-
-    glDrawArrays(GL_TRIANGLES, 0, this->m_drawCount);
-    glDisableVertexAttribArray(0);
-//  glBindVertexArray(0); // No operations will further affect the array after this statement
+    glBindVertexArray(m_vertexArrayObject);
+    glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
 }
