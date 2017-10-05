@@ -1,6 +1,6 @@
 #include "shader.hpp"
 
-static GLuint createShader(const std::string &text, GLenum shaderType);
+static GLuint createShader(const std::string &shader_code, GLenum shaderType);
 
 static void checkShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string &errorMessage);
 
@@ -17,9 +17,6 @@ Shader::Shader(const std::string &fileName) {
     for (unsigned int i = 0; i < this->NUM_SHADERS; i++) {
         glAttachShader(this->shaderProgram, this->shaders[i]);
     }
-
-    glBindAttribLocation(this->shaderProgram, 0, "position");
-
     glLinkProgram(this->shaderProgram);
     checkShaderError(this->shaderProgram, GL_LINK_STATUS, true,
                      "Error: Linking failed");
@@ -29,7 +26,9 @@ Shader::Shader(const std::string &fileName) {
                      "Error: Program is invalid");
 }
 
-void Shader::bind() { glUseProgram(this->shaderProgram); }
+void Shader::bind() {
+    glUseProgram(this->shaderProgram);
+}
 
 Shader::~Shader() {
     for (unsigned int i = 0; i < this->NUM_SHADERS; i++) {
@@ -52,12 +51,13 @@ std::string loadShader(const std::string &fileName) {
         std::cerr << "Unable to load shader: " << fileName << std::endl;
     }
 
+    file.close();
     return output;
 }
 
 void checkShaderError(GLuint shader, GLuint flag, bool isProgram,
                       const std::string &errorMessage) {
-    GLint success = 0;
+    GLint success = GL_FALSE;
     GLchar error[1024] = {0};
 
     if (isProgram) {
@@ -77,7 +77,7 @@ void checkShaderError(GLuint shader, GLuint flag, bool isProgram,
     }
 }
 
-GLuint createShader(const std::string &text, GLenum shaderType) {
+GLuint createShader(const std::string &shader_code, GLenum shaderType) {
 
     GLuint shader = glCreateShader(shaderType);
 
@@ -88,8 +88,8 @@ GLuint createShader(const std::string &text, GLenum shaderType) {
     const GLchar *shaderSourceStrings[1];
     GLint shaderSourceLengths[1];
 
-    shaderSourceStrings[0] = text.c_str();
-    shaderSourceLengths[0] = text.length();
+    shaderSourceStrings[0] = shader_code.c_str();
+    shaderSourceLengths[0] = static_cast<GLint>(shader_code.length());
 
     glShaderSource(shader, 1, shaderSourceStrings, shaderSourceLengths);
 
