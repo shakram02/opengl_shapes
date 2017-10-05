@@ -1,13 +1,7 @@
 #include "mesh.hpp"
 
 Mesh::Mesh(Vertex *vertices, unsigned int count) {
-    static const GLfloat g_vertex_buffer_data[] = {
-            -0.1f, -0.3f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-    };
-
-    this->m_vertexCount = sizeof(g_vertex_buffer_data) / sizeof(GLfloat);
+    this->m_vertexCount = count;
 
     glGenVertexArrays(1, &(m_vertexArrayObject));
     glGenBuffers(1, &(m_vertexBufferObjects[POSITION_VB]));
@@ -15,7 +9,8 @@ Mesh::Mesh(Vertex *vertices, unsigned int count) {
     glBindVertexArray(m_vertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjects[POSITION_VB]);
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, count * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+    // 3 is the vector dimension
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
 
     glEnableVertexAttribArray(0);
