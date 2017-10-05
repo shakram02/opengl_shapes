@@ -16,6 +16,10 @@ Display::Display(int width, int height, const std::string &title) {
     this->sdlContext = SDL_GL_CreateContext(this->sdlWindow);
     this->closed = false;
 
+    std::stringstream versionedTitle;
+    versionedTitle << title << " [OpenGL: " << (glGetString(GL_VERSION)) << "]";
+    SDL_SetWindowTitle(this->sdlWindow, versionedTitle.str().c_str());
+
     GLenum res = glewInit();
 
     if (res != GLEW_OK) {
