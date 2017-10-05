@@ -9,12 +9,10 @@ using namespace std;
 int main() {
     Display window(800, 600, "Test");
 
-    Vertex vertices[] = {
-            // Values are from -1 to 1
-            // -1 left/bottom, 1 is right/top
-            Vertex(glm::vec3(-0.5, -0.5, 0)),
-            Vertex(glm::vec3(0, 0.5, 0)),
-            Vertex(glm::vec3(0.5, -0.5, 0))
+     Vertex vertices[] = {
+            Vertex(vec3(-0.1f, -0.3f, 0.0f)),
+            Vertex(vec3(1.0f, -1.0f, 0.0f)),
+            Vertex(vec3(0.0f, 1.0f, 0.0f))
     };
 
     Shader shader(std::string(SHADER_FOLDER_NAME) + std::string("basic_shader"));
