@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
  dir_name=${PWD##*/}
  
  function build_and_run(){
@@ -5,8 +6,7 @@
  }
  
 
-if [ dir_name -eq "build" ];then
-
+if [[ ${dir_name} == "build" ]];then
     build_and_run
 
 else
