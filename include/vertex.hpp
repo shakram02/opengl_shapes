@@ -7,11 +7,11 @@ using namespace glm;
 
 class Vertex {
 public:
-  Vertex(const vec3 &pos) { this->pos = pos; }
+    Vertex(const vec3 &pos) { this->pos = pos; }
 
 protected:
 private:
-  vec3 pos;
+    vec3 pos;
 };
 
 #endif
