@@ -6,8 +6,8 @@
 #include <iostream>
 #include <string>
 
-#define VERTEX_SHADEER_EXTENSION ".vert"
-#define FRAGMENT_SHADEER_EXTENSION ".frag"
+#define VERTEX_SHADER_EXTENSION ".vert"
+#define FRAGMENT_SHADER_EXTENSION ".frag"
 
 class Shader {
 public:
@@ -21,11 +21,6 @@ private:
   Shader(const Shader &) {}
   void operator=(const Shader &) {}
 
-  std::string loadShader(const std::string &fileName);
-  void checkShaderError(GLuint shader, GLuint flag, bool isProgram,
-                        const std::string &errorMessage);
-
-  GLuint createShader(const std::string &text, GLenum shaderType);
   GLuint shaderProgram;        // Keep a handle of the program
   GLuint shaders[NUM_SHADERS]; // Vertex and fragment shaders
 };
