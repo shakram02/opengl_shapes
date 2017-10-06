@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 set(TARGET_NAME "open_gl_display")
 # Name the project
-project(TARGET_NAME)
+project(${TARGET_NAME})
 
 # Add the include and src directories to the build
 include_directories("include")

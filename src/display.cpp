@@ -16,18 +16,22 @@ Display::Display(int width, int height, const std::string &title) {
                                        SDL_WINDOW_OPENGL);
     this->sdlContext = SDL_GL_CreateContext(this->sdlWindow);
 
-    std::stringstream versionedTitle;
-    versionedTitle << title << " [OpenGL: " << (glGetString(GL_VERSION)) << "]";
-    SDL_SetWindowTitle(this->sdlWindow, versionedTitle.str().c_str());
+    {
+        std::stringstream versionedTitle;
+        versionedTitle << " [OpenGL: " << (glGetString(GL_VERSION)) << "] ";
+        m_baseWindowTitle = title + versionedTitle.str();
+    }
+
+    SDL_SetWindowTitle(this->sdlWindow, m_baseWindowTitle.c_str());
 
     GLenum res = glewInit();
-
     if (res != GLEW_OK) {
         std::cerr << "Glew failed to initialize!" << std::endl;
     }
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+
     glCullFace(GL_BACK);
 }
 
@@ -38,12 +42,15 @@ Display::~Display() {
     SDL_Quit();
 }
 
+void Display::setTitlePostfix(const std::string &postfix) {
+    SDL_SetWindowTitle(this->sdlWindow, (m_baseWindowTitle + postfix).c_str());
+}
+
 void Display::swapBuffers() {
     SDL_GL_SwapWindow(this->sdlWindow);
 }
 
-void Display::clear(float r, float g, float b, float a)
-{
+void Display::clear(float r, float g, float b, float a) {
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

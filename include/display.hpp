@@ -17,10 +17,13 @@ public:
 
     void clear(float r, float g, float b, float a);
 
+    void setTitlePostfix(const std::string &postfix);
+
 protected:
 private:
     SDL_Window *sdlWindow;
     SDL_GLContext sdlContext;
+    std::string m_baseWindowTitle;
 
     void operator=(const Display &other) {}
 
