@@ -39,7 +39,8 @@ int main() {
     double minFps = INT_MAX, tempFps;
     double fps = 0;
 
-    float sinScale = 0, cosScale = 0;
+    GLenum drawModes[] = {GL_TRIANGLES, GL_POINTS, GL_LINE_LOOP};
+    int drawType = 0;
 
     SDL_Delay(32);
 
@@ -64,6 +65,12 @@ int main() {
 
                 else if (scanCode == SDL_SCANCODE_W) timeSpeedLimiter.increment();
                 else if (scanCode == SDL_SCANCODE_S) timeSpeedLimiter.decrement();
+                else if (scanCode == SDL_SCANCODE_X) {
+                    drawType++;
+                    drawType = drawType % (sizeof(drawModes) / sizeof(GLenum));
+                    cout << " X " << drawType << endl;
+                }
+
                 cout << "KEY PRESS: " << scanCode << " @ " << frameCount << endl;
             }
         }
@@ -79,7 +86,8 @@ int main() {
         transform.setPosition(pos);
 
         shader.update(transform);
-        mesh.draw();
+        // GL_TRIANGLES | GL_LINE_LOOP | GL_POINTS | GL_LINE_STRIP |
+        mesh.draw(drawModes[drawType]);
 
         virtualTimePassed += timeSpeedLimiter.getValue();
         frameCount++;

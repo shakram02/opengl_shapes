@@ -23,7 +23,7 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &(m_vertexBufferObjects[POSITION_VB]));
 }
 
-void Mesh::draw() {
+void Mesh::draw(GLenum mode) {
     glBindVertexArray(m_vertexArrayObject);
-    glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
+    glDrawArrays(mode, 0, m_vertexCount);
 }

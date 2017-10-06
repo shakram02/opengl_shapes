@@ -8,7 +8,7 @@ class Mesh {
 public:
     Mesh(Vertex *vertices, unsigned int count);
 
-    void draw();
+    void draw(GLenum mode);
 
     virtual ~Mesh();
 
