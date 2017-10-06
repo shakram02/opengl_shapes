@@ -24,7 +24,7 @@ int main() {
 
     float angleRad = 0.0f;
     bool isRunning = true;
-//    FpsLogger fpsLogger;
+    FpsLogger fpsLogger;
     unsigned long frameCount = 0;
     double fps = 0;
 
@@ -55,9 +55,9 @@ int main() {
         angleRad += 0.03f;
         frameCount++;
 
-//        cout << "Min FPS: " << fpsLogger.getMinFps() << endl;
+        cout << "Min FPS: " << fpsLogger.getMinFps() << endl;
 
-//        fps = fpsLogger.logAndGetFps(frameCount);
+        fps = fpsLogger.logAndGetFps(frameCount);
         window.setTitlePostfix(to_string(fps));
 
         window.swapBuffers();
