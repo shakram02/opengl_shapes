@@ -7,9 +7,11 @@
 
 class ValueLimiter {
 public:
-    ValueLimiter(float initial, float min, float max, float delta);
+    ValueLimiter(double initial, double min, double max, double delta);
 
-    float getValue() const;
+    void update();
+
+    double getValue();
 
     void increment();
 
@@ -17,11 +19,21 @@ public:
 
 private:
 
-    float m_minVal;
-    float m_maxVal;
-    float m_position;
-    float m_delta;
+    double m_minVal;
+    double m_maxVal;
+    double m_position;
+    double m_delta;
 
+    // Provide smooth transition between values
+    enum class IncrementDirection {
+        Increasing,
+        Decreasing,
+        None
+    };
+
+    double m_final;
+    double m_internalStep;
+    IncrementDirection m_direction;
 };
 
 #endif //OPEN_GL_DISPLAY_POSITION_CONTROLLER_HPP
